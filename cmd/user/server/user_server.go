@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"ercd-test/cmd/user/data"
 	"ercd-test/internal/dto"
 	"ercd-test/internal/logger"
 	"ercd-test/internal/pb"
@@ -12,13 +13,37 @@ import (
 
 type UserService struct {
 	messageChan chan *dto.Message
+	tronData    *data.TronData
 
 	pb.UnimplementedUserServiceServer
 }
 
 func NewUserService() *UserService {
+	tronD := data.NewTronData()
+	go tronD.GetData()
+
 	return &UserService{
 		messageChan: make(chan *dto.Message),
+		tronData:    tronD,
+	}
+}
+
+func (s *UserService) Run() {
+	go s.alwaysRun()
+}
+
+func (s *UserService) alwaysRun() {
+	defer func() {
+		logger.Logrus.Debug("streaming to client has ended.")
+	}()
+
+	logger.Logrus.Debug("A client is connected.")
+
+	for {
+		select {
+		case val := <-s.tronData.DatChan:
+			fmt.Printf("%+v", val)
+		}
 	}
 }
 

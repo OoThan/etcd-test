@@ -13,3 +13,7 @@ rpcSvc:
 telegram:
   tokenID:  ""
   groupID:  ""
+
+# wed-socket
+wss:
+  addr: "ws://localhost:8089/tronws"

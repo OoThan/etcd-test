@@ -25,6 +25,10 @@ type (
 		TokenID string `yaml:"tokenID"`
 		GroupID string `yaml:"groupID"`
 	}
+
+	wss struct {
+		Addr string `yaml:"addr"`
+	}
 )
 
 var (
@@ -32,6 +36,7 @@ var (
 		Etcd     etcd     `yaml:"etcd"`
 		RPCSvc   rpcSvc   `yaml:"rpcSvc"`
 		Telegram telegram `yaml:"telegram"`
+		Wss      wss      `yaml:"wss"`
 	}
 )
 
@@ -61,4 +66,8 @@ func RPCSvc() *rpcSvc {
 
 func Telegram() *telegram {
 	return &_c.Telegram
+}
+
+func Wss() *wss {
+	return &_c.Wss
 }

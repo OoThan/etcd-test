@@ -81,7 +81,6 @@ func main() {
 		if err != nil {
 			logger.Logrus.Fatalf("Failed to Listen User RPC server: %v", err)
 		}
-		defer l.Close()
 
 		// start grpc server
 		go func() {
@@ -103,6 +102,8 @@ func main() {
 			panic(err)
 		}
 	}
+
+	userSvc.Run()
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
