@@ -42,7 +42,7 @@ func (s *UserService) alwaysRun() {
 	for {
 		select {
 		case val := <-s.tronData.DatChan:
-			fmt.Printf("%+v", val)
+			logger.Logrus.Infof("%+v", val)
 		}
 	}
 }
