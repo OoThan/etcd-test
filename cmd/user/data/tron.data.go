@@ -73,16 +73,16 @@ func (s *TronData) GetData() {
 		}
 
 		//fmt.Println("REC ==>", string(msg))
-		//go s.handleMsg(msg)
+		go s.handleMsg(msg)
 
-		data := &TronTicker{}
-		if err := json.Unmarshal(msg, &data); err != nil {
-			logger.Logrus.Error(err)
-			return
-		}
-		//fmt.Println("REC ==>", data)
-
-		s.DatChan <- data
+		//data := &TronTicker{}
+		//if err := json.Unmarshal(msg, &data); err != nil {
+		//	logger.Logrus.Error(err)
+		//	return
+		//}
+		////fmt.Println("REC ==>", data)
+		//
+		//s.DatChan <- data
 
 		//if msgType == websocket.TextMessage {
 		//}
